@@ -1,4 +1,7 @@
 package com.cryptoloan.domain;
 
-public class LoanStatus {
+public enum LoanStatus {
+    PENDING,   // Prêt en attente
+    APPROVED,  // Prêt approuvé
+    LIQUIDATED // Prêt liquidé
 }

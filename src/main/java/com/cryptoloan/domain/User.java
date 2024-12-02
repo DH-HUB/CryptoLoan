@@ -1,4 +1,4 @@
-package com.cryptoloan;
+package com.cryptoloan.domain;
 
 import lombok.Data;
 import javax.persistence.Entity;
@@ -12,4 +12,3 @@ public class User {
     private String name;
     private String email;
 }
-
