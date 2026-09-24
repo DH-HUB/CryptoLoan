@@ -1,0 +1,2 @@
+package com.cryptoloan.loan.adapters.out.persistence;import com.cryptoloan.loan.domain.model.LoanStatus;import java.util.*;import org.springframework.data.jpa.repository.JpaRepository;interface SpringDataLoanRepository extends JpaRepository<LoanJpaEntity,Long>{Optional<LoanJpaEntity>findByRequestId(UUID id);List<LoanJpaEntity>findByBorrowerEmailOrderByCreatedAtDesc(String email);List<LoanJpaEntity>findByStatus(LoanStatus status);}
+

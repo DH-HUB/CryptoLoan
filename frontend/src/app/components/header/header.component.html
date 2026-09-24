@@ -1,0 +1,53 @@
+<div class="py-4 bg-gradient-to-b from-black to-yellow-200 shadow-md flex flex-wrap items-center justify-between px-6">
+  
+  <div class="flex items-center space-x-4">
+    <a routerLink="/" class="flex items-center">
+      <img src="./logo2_cryptoLoan.png" alt="CryptoLoan Logo" class="h-12 w-12 md:h-20 md:w-20" />
+    </a>
+    <a routerLink="/" class="text-white hover:underline text-sm md:text-base">Accueil</a>
+  </div>
+
+  
+  <div class="text-center flex-1">
+    <h1 class="text-xl md:text-3xl font-bold text-white">Bienvenue sur CryptoLoan !</h1>
+    <p class="text-sm md:text-lg text-black-700">Gérez vos prêts garantis par des cryptomonnaies en toute simplicité.</p>
+  </div>
+
+  
+  <div class="flex items-center space-x-4 mt-4 md:mt-0">
+    <ng-container *ngIf="auth.userChanges() | async as user">
+      <a routerLink="/notifications" class="bg-yellow-100 text-black py-2 px-3 rounded-full shadow" title="Ouvrir les notifications">
+        Notifications
+      </a>
+      <div class="text-right text-sm bg-white/90 rounded-lg px-3 py-2 shadow">
+        <strong class="block">{{ user.name }}</strong>
+        <span class="text-gray-600">{{ user.email }}</span>
+      </div>
+    </ng-container>
+    <div class="relative" *ngIf="auth.isAuthenticated()">
+      <button (click)="toggleDropdown()" class="bg-white text-black py-2 px-4 rounded shadow hover:bg-gray-400">
+        Portefeuille
+      </button>
+
+      <ul class="absolute right-0 mt-2 bg-white border rounded shadow w-56" *ngIf="dropdownOpen">
+        <li class="px-2 py-2 hover:bg-gray-200">
+          <a (click)="closeDropdown()" routerLink="/loan-management" class="block w-full">Gestion des Prêts</a>
+        </li>
+        <li class="px-2 py-2 hover:bg-gray-200">
+          <a (click)="closeDropdown()" routerLink="/guarantee-management" class="block w-full">Gestion des Garanties</a>
+        </li>
+        <li class="px-2 py-2 hover:bg-gray-200">
+          <a (click)="closeDropdown()" routerLink="/notifications" class="block w-full">Notifications</a>
+        </li>
+      </ul>
+    </div>
+
+    <ng-container *ngIf="!auth.isAuthenticated(); else loggedIn">
+      <a routerLink="/login" class="bg-white text-black py-2 px-4 rounded shadow hover:bg-gray-400">Connexion</a>
+    </ng-container>
+
+    <ng-template #loggedIn>
+      <button (click)="logout()" class="bg-black text-white py-2 px-4 rounded shadow hover:bg-gray-400">Déconnexion</button>
+    </ng-template>
+  </div>
+</div>

@@ -1,0 +1,7 @@
+* xref:index.adoc[Présentation]
+* xref:architecture.adoc[Architecture]
+* xref:api.adoc[API REST]
+* xref:deployment.adoc[Déploiement]
+* xref:testing.adoc[Tests]
+* xref:security.adoc[Sécurité]
+* xref:email.adoc[Notifications]

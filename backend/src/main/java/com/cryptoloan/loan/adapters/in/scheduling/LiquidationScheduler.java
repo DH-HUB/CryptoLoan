@@ -1,0 +1,2 @@
+package com.cryptoloan.loan.adapters.in.scheduling;import com.cryptoloan.loan.application.LoanService;import org.springframework.scheduling.annotation.Scheduled;import org.springframework.stereotype.Component;@Component class LiquidationScheduler{private final LoanService service;LiquidationScheduler(LoanService s){service=s;}@Scheduled(fixedDelayString="${cryptoloan.liquidation.interval-ms}")void check(){service.checkRisk();}}
+

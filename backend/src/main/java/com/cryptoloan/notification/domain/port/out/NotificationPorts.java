@@ -1,0 +1,2 @@
+package com.cryptoloan.notification.domain.port.out;import com.cryptoloan.notification.domain.model.Notification;import java.util.List;public final class NotificationPorts{private NotificationPorts(){}public interface Repository{Notification save(Notification n);List<Notification>findForRecipient(String recipient);}public interface EmailSender{void send(String recipient,String subject,String message);}public interface LivePublisher{void publish(Notification notification);}}
+

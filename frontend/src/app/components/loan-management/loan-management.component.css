@@ -1,0 +1,4 @@
+.page-title { text-align: center; margin: 1.5rem 0; font-size: 1.5rem; font-weight: 700; color: #241802; }
+.loan-management-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 1.5rem; padding: 0 1rem 2rem; align-items: start; }
+.management-panel { border: 1px solid #d1d5db; border-radius: 0.4rem; background: #f9fafb; padding: 1rem; box-shadow: 0 1px 3px rgba(0,0,0,.08); min-width: 0; }
+@media (max-width: 900px) { .loan-management-grid { grid-template-columns: 1fr; } }

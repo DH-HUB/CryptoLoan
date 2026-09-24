@@ -1,0 +1,4 @@
+package com.cryptoloan.identity.adapters.out.persistence;
+import com.cryptoloan.identity.domain.model.User;import com.cryptoloan.identity.domain.port.out.IdentityPorts.UserRepository;import java.util.*;import org.springframework.stereotype.Component;
+@Component class UserRepositoryAdapter implements UserRepository{private final SpringDataUserRepository repo;UserRepositoryAdapter(SpringDataUserRepository repo){this.repo=repo;}public Optional<User> findByEmail(String email){return repo.findByEmail(email).map(this::domain);}public User save(User u){UserJpaEntity e=new UserJpaEntity();e.id=u.id();e.name=u.name();e.email=u.email();e.passwordHash=u.passwordHash();e.roles=new HashSet<>(u.roles());e.enabled=u.enabled();e.createdAt=u.createdAt();return domain(repo.save(e));}private User domain(UserJpaEntity e){return new User(e.id,e.name,e.email,e.passwordHash,e.roles,e.enabled,e.createdAt);}}
+

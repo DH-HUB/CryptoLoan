@@ -1,0 +1,2 @@
+package com.cryptoloan.contract.domain.port.out;import com.cryptoloan.contract.domain.model.ContractProof;import java.util.Optional;public final class ContractPorts{private ContractPorts(){}public interface Repository{ContractProof save(ContractProof proof);Optional<ContractProof>find(Long loanId);}public interface DocumentStorage{String store(Long loanId,byte[] content);byte[] load(String reference);}public interface BlockchainSignature{String sign(Long loanId,String hash,String signer);}}
+

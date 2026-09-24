@@ -1,0 +1,1 @@
+package com.cryptoloan.audit.adapters.out;import java.util.List;import org.springframework.data.jpa.repository.JpaRepository;public interface SpringDataAuditRepository extends JpaRepository<AuditJpaEntity,Long>{List<AuditJpaEntity>findTop200ByOrderByOccurredAtDesc();}

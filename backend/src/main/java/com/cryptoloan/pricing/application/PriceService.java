@@ -1,0 +1,4 @@
+package com.cryptoloan.pricing.application;
+import com.cryptoloan.pricing.domain.port.PriceProviderPort;import java.math.BigDecimal;import java.util.*;import org.springframework.cache.annotation.Cacheable;import org.springframework.stereotype.Service;
+@Service public class PriceService{private final PriceProviderPort provider;public PriceService(PriceProviderPort provider){this.provider=provider;}@Cacheable("crypto-prices")public BigDecimal eur(String asset){return provider.fetchEur(normalize(asset));}public Map<String,BigDecimal> eur(Collection<String> assets){Map<String,BigDecimal> result=new LinkedHashMap<>();assets.forEach(a->result.put(a,eur(a)));return result;}private String normalize(String value){return switch(value.toLowerCase(Locale.ROOT)){case"btc"->"bitcoin";case"eth"->"ethereum";case"ltc"->"litecoin";default->value.toLowerCase(Locale.ROOT);};}}
+

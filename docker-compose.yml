@@ -1,0 +1,93 @@
+name: cryptoloan
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-cryptoloan}
+      POSTGRES_USER: ${POSTGRES_USER:-cryptoloan}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-cryptoloan}
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    networks: [cryptoloan]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-cryptoloan} -d ${POSTGRES_DB:-cryptoloan}"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+
+  backend:
+    build: ./backend
+    restart: unless-stopped
+    environment:
+      DB_URL: jdbc:postgresql://postgres:5432/${POSTGRES_DB:-cryptoloan}
+      DB_USER: ${POSTGRES_USER:-cryptoloan}
+      DB_PASSWORD: ${POSTGRES_PASSWORD:-cryptoloan}
+      JWT_SECRET: ${JWT_SECRET:-CHANGE_ME_DEMO_SECRET_CHANGE_ME_DEMO_SECRET}
+      JWT_EXPIRATION_SECONDS: ${JWT_EXPIRATION_SECONDS:-3600}
+      COINGECKO_BASE_URL: ${COINGECKO_BASE_URL:-https://api.coingecko.com/api/v3}
+      LIQUIDATION_MIN_RATIO: ${LIQUIDATION_MIN_RATIO:-1.20}
+      DEMO_ACCOUNTS_ENABLED: ${DEMO_ACCOUNTS_ENABLED:-true}
+      DOCUMENT_DIR: /data/contracts
+      MAIL_HOST: ${MAIL_HOST:-mailpit}
+      MAIL_PORT: ${MAIL_PORT:-1025}
+      MAIL_USERNAME: ${MAIL_USERNAME:-}
+      MAIL_PASSWORD: ${MAIL_PASSWORD:-}
+      MAIL_FROM: ${MAIL_FROM:-noreply@example.com}
+      MAIL_SMTP_AUTH: ${MAIL_SMTP_AUTH:-false}
+      MAIL_STARTTLS: ${MAIL_STARTTLS:-false}
+      LIQUIDATION_WARNING_RATIO: ${LIQUIDATION_WARNING_RATIO:-1.35}
+    volumes:
+      - contract-data:/data/contracts
+    networks: [cryptoloan]
+    depends_on:
+      postgres: { condition: service_healthy }
+      mailpit: { condition: service_started }
+    healthcheck:
+      test: ["CMD", "wget", "-q", "-O", "-", "http://localhost:8080/actuator/health/readiness"]
+      interval: 10s
+      timeout: 5s
+      retries: 12
+      start_period: 30s
+
+  frontend:
+    build: ./frontend
+    restart: unless-stopped
+    ports: ["8080:80"]
+    networks: [cryptoloan]
+    depends_on:
+      backend:
+        condition: service_healthy
+    healthcheck:
+      test:
+        - CMD
+        - wget
+        - -q
+        - -O
+        - /dev/null
+        - http://127.0.0.1:80/
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+
+  mailpit:
+    image: axllent/mailpit:v1.20
+    restart: unless-stopped
+    ports: ["8025:8025"]
+    networks: [cryptoloan]
+
+  blockchain-node:
+    build: ./blockchain
+    profiles: [blockchain]
+    restart: unless-stopped
+    ports: ["8545:8545"]
+    networks: [cryptoloan]
+
+networks:
+  cryptoloan:
+
+volumes:
+  postgres-data:
+  contract-data:

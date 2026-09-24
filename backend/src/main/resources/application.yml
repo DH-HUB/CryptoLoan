@@ -1,0 +1,53 @@
+server:
+  port: 8080
+  error:
+    include-message: never
+    include-stacktrace: never
+  shutdown: graceful
+spring:
+  application.name: cryptoloan
+  lifecycle.timeout-per-shutdown-phase: 20s
+  datasource:
+    url: ${DB_URL:jdbc:postgresql://localhost:5432/cryptoloan}
+    username: ${DB_USER:cryptoloan}
+    password: ${DB_PASSWORD:cryptoloan}
+    hikari:
+      maximum-pool-size: 10
+      minimum-idle: 2
+  jpa:
+    hibernate.ddl-auto: validate
+    open-in-view: false
+  flyway.enabled: true
+  cache:
+    type: caffeine
+    caffeine.spec: expireAfterWrite=60s,maximumSize=100
+  mail:
+    host: ${MAIL_HOST:localhost}
+    port: ${MAIL_PORT:1025}
+    username: ${MAIL_USERNAME:}
+    password: ${MAIL_PASSWORD:}
+    properties:
+      mail.smtp:
+        auth: ${MAIL_SMTP_AUTH:false}
+        starttls.enable: ${MAIL_STARTTLS:false}
+        connectiontimeout: 5000
+        timeout: 5000
+        writetimeout: 5000
+management:
+  endpoint.health.probes.enabled: true
+  endpoints.web.exposure.include: health,info,metrics
+cryptoloan:
+  jwt:
+    secret: ${JWT_SECRET:CHANGE_ME_DEMO_SECRET_CHANGE_ME_DEMO_SECRET}
+    expiration-seconds: ${JWT_EXPIRATION_SECONDS:3600}
+  pricing.coingecko-url: ${COINGECKO_BASE_URL:https://api.coingecko.com/api/v3}
+  liquidation:
+    interval-ms: ${LIQUIDATION_INTERVAL_MS:15000}
+    min-ratio: ${LIQUIDATION_MIN_RATIO:1.20}
+    warning-ratio: ${LIQUIDATION_WARNING_RATIO:1.35}
+  documents.directory: ${DOCUMENT_DIR:./contracts}
+  demo-accounts-enabled: ${DEMO_ACCOUNTS_ENABLED:true}
+  mail.from: ${MAIL_FROM:noreply@example.com}
+logging.level:
+  root: INFO
+  com.cryptoloan: INFO

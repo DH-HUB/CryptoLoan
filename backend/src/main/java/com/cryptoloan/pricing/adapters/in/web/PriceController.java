@@ -1,0 +1,2 @@
+package com.cryptoloan.pricing.adapters.in.web;import com.cryptoloan.pricing.application.PriceService;import java.math.BigDecimal;import java.util.*;import org.springframework.web.bind.annotation.*;@RestController @RequestMapping("/api/crypto")class PriceController{private final PriceService prices;PriceController(PriceService prices){this.prices=prices;}@GetMapping("/price")BigDecimal one(@RequestParam String cryptoId){return prices.eur(cryptoId);}@GetMapping("/prices")Map<String,BigDecimal>many(@RequestParam List<String>cryptoIds){return prices.eur(cryptoIds);}}
+

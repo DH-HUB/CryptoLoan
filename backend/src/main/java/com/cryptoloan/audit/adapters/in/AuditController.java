@@ -1,0 +1,2 @@
+package com.cryptoloan.audit.adapters.in;import com.cryptoloan.audit.application.AuditService;import com.cryptoloan.audit.domain.AuditEvent;import java.util.List;import org.springframework.security.access.prepost.PreAuthorize;import org.springframework.web.bind.annotation.*;@RestController @RequestMapping("/api/admin/audit")@PreAuthorize("hasRole('ADMIN')")class AuditController{private final AuditService service;AuditController(AuditService service){this.service=service;}@GetMapping List<AuditEvent>recent(){return service.recent();}}
+

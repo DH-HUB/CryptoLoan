@@ -1,0 +1,11 @@
+= API REST
+
+La documentation OpenAPI est générée automatiquement
+à partir du backend Spring Boot avec Springdoc.
+
+Elle décrit les endpoints, les modèles de données
+et l'authentification JWT.
+
+Télécharger le contrat OpenAPI :
+
+link:{attachmentsdir}/openapi.json[Documentation OpenAPI (JSON)]

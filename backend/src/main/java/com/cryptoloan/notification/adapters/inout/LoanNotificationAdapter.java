@@ -1,0 +1,2 @@
+package com.cryptoloan.notification.adapters.inout;import com.cryptoloan.loan.domain.port.out.LoanPorts.Notifications;import com.cryptoloan.notification.application.NotificationService;import org.springframework.stereotype.Component;@Component class LoanNotificationAdapter implements Notifications{private final NotificationService service;LoanNotificationAdapter(NotificationService service){this.service=service;}public void send(String recipient,String type,String subject,String message,Long loanId){service.notify(recipient,type,subject,message,loanId);}}
+

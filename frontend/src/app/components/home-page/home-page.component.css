@@ -1,0 +1,51 @@
+.video-container {
+  display: flex;
+  justify-content: center;
+  margin: 20px 0;
+}
+
+.video-container iframe {
+  max-width: 40%;
+  border-radius: 8px;
+  height: 270px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.crypto-section {
+  text-align: center; /* Aligne tout au centre */
+}
+
+.crypto-prices {
+  display: flex;
+  justify-content: center;
+  gap: 15px; /* Espace entre les cartes */
+  margin-top: 1%;
+}
+
+.crypto-card {
+  background-color: #f4f4f4; /* Fond doux */
+  border-radius: 10px; /* Coins arrondis */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Ombre subtile */
+  padding: 1%;
+  text-align: center;
+  width: 30%; /* Réduction de la largeur */
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Animation au survol */
+}
+
+.crypto-card:hover {
+  transform: translateY(-10px); /* Légère élévation */
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3); /* Ombre accentuée */
+}
+
+.crypto-card h3 {
+  font-size: 1rem;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.crypto-card p {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #28a745; /* Couleur verte pour les prix */
+}

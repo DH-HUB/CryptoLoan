@@ -1,0 +1,54 @@
+<div class="home-page">
+
+  <h1 class="text-3xl font-bold text-center text-gray-800 mt-8">
+    Découvrez CryptoLoan en quelques secondes !
+  </h1>
+
+  <p class="text-center text-lg text-gray-600 mt-4">
+    Apprenez comment notre plateforme révolutionne la gestion des prêts garantis par cryptomonnaies grâce à cette vidéo explicative.
+  </p>
+
+  
+<div class="video-container">
+  <video width="40%" height="100%" controls autoplay muted>
+    <source src="CryptoLoan.mp4" type="video/mp4">
+    Votre navigateur ne prend pas en charge la lecture de vidéos.
+  </video>
+  </div>
+
+
+<div class="crypto-section mt-8">
+
+  <h2 class="text-2xl font-bold text-center mb-4">
+    Prix des Cryptomonnaies en Temps Réel
+  </h2>
+
+  <div class="crypto-prices">
+
+    <div class="crypto-card" *ngIf="cryptoPrices['bitcoin']">
+      <h3>Bitcoin (BTC)</h3>
+      
+      <p class="!text-[#cfb706] font-bold text-xl">
+        {{ cryptoPrices['bitcoin'] | currency:'EUR' }}
+      </p>
+    </div>
+
+    <div class="crypto-card" *ngIf="cryptoPrices['ethereum']">
+      <h3>Ethereum (ETH)</h3>
+      
+      <p class="!text-[#cfb706] font-bold text-xl">
+        {{ cryptoPrices['ethereum'] | currency:'EUR' }}
+      </p>
+    </div>
+
+    <div class="crypto-card" *ngIf="cryptoPrices['litecoin']">
+      <h3>Litecoin (LTC)</h3>
+      
+      <p class="!text-[#cfb706] font-bold text-xl">
+        {{ cryptoPrices['litecoin'] | currency:'EUR' }}
+      </p>
+    </div>
+
+  </div>
+
+</div>

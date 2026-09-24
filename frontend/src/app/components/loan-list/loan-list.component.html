@@ -1,0 +1,64 @@
+<div class="card">
+  <h2>Prêts</h2>
+
+  <div *ngIf="loading">Chargement...</div>
+
+  <div class="error" *ngIf="error">
+    {{ error }}
+  </div>
+  <div class="success" *ngIf="actionMessage">{{ actionMessage }}</div>
+
+  <table *ngIf="!loading && loans.length">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Utilisateur</th>
+        <th>Montant</th>
+        <th>Garantie</th>
+        <th>Ratio</th>
+        <th>Statut</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr *ngFor="let l of loans">
+        <td>{{ l.id }}</td>
+        <td>{{ l.borrowerName }}</td>
+        <td>{{ l.amountEur }} EUR</td>
+        <td>
+          {{ l.collateralAmount }}
+          {{ l.collateralSymbol }}
+        </td>
+        <td>{{ l.liquidationRatio * 100 | number:'1.0-2' }}%</td>
+        <td>
+          <span
+            class="badge"
+            [attr.data-status]="l.status"
+          >
+            {{ l.status }}
+          </span>
+        </td>
+        <td class="actions">
+          <button *ngIf="auth.hasRole('ROLE_ADMIN') && l.status === 'PENDING'" (click)="approve(l.id)">Approuver</button>
+          <button *ngIf="l.status === 'APPROVED'" (click)="showContract(l.id)">Contrat</button>
+        </td>
+      </tr>
+      <tr *ngFor="let l of loans" [hidden]="!contracts[l.id]">
+        <td colspan="7" class="contract-panel" *ngIf="contracts[l.id] as c">
+          <strong>Contrat du prêt #{{ l.id }}</strong>
+          <p>Empreinte SHA-256 : <code>{{ c.contractHashHex }}</code></p>
+          <p>Signature utilisateur : {{ c.userTxHash || 'en attente' }}</p>
+          <p>Contresignature : {{ c.adminTxHash || 'en attente' }}</p>
+          <button (click)="download(l.id)">Télécharger</button>
+          <button *ngIf="!auth.hasRole('ROLE_ADMIN') && !c.userTxHash" (click)="signUser(l.id)">Signer</button>
+          <button *ngIf="auth.hasRole('ROLE_ADMIN') && !c.adminTxHash" (click)="signAdmin(l.id)">Contresigner</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div *ngIf="!loading && !loans.length">
+    Aucun prêt pour le moment.
+  </div>
+</div>

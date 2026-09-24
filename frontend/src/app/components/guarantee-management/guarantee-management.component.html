@@ -1,0 +1,27 @@
+<div class="guarantee-management">
+  <h2>Gestion des Garanties</h2>
+  <p *ngIf="loading">Chargement…</p>
+
+  
+  <div class="guarantee-list">
+    <h3>Vos Garanties</h3>
+    <ul>
+      <li *ngFor="let guarantee of guarantees">
+        Prêt #{{ guarantee.id }} — {{ guarantee.collateralAmount }} {{ guarantee.collateralSymbol | uppercase }} — seuil minimal {{ guarantee.liquidationRatio * 100 | number:'1.0-2' }} %
+      </li>
+      <li *ngIf="!guarantees.length">Aucune garantie active.</li>
+    </ul>
+  </div>
+
+  
+  <div class="notifications">
+    <h3>Alertes</h3>
+    <ul>
+      <li *ngFor="let alert of alerts">
+        <strong>{{ alert.subject }}</strong> — {{ alert.message }}
+      </li>
+      <li *ngIf="!alerts.length">Aucune alerte de liquidation.</li>
+    </ul>
+  </div>
+</div>
+

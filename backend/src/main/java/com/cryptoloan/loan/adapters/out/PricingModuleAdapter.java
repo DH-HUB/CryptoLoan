@@ -1,0 +1,2 @@
+package com.cryptoloan.loan.adapters.out;import com.cryptoloan.loan.domain.port.out.LoanPorts.PriceCatalog;import com.cryptoloan.pricing.application.PriceService;import java.math.BigDecimal;import org.springframework.stereotype.Component;@Component class PricingModuleAdapter implements PriceCatalog{private final PriceService prices;PricingModuleAdapter(PriceService prices){this.prices=prices;}public BigDecimal eur(String symbol){return prices.eur(symbol);}}
+

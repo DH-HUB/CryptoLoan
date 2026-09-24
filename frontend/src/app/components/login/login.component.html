@@ -1,0 +1,148 @@
+<div class="max-w-lg mx-auto mt-10 bg-white/90 rounded-xl shadow p-6">
+
+  <h2 class="text-2xl font-bold mb-4">
+    {{ mode === 'login' ? 'Connexion' : 'Créer un compte' }}
+  </h2>
+
+  <div class="flex gap-2 mb-4">
+
+    <button
+      type="button"
+      class="px-3 py-2 rounded border"
+      [class.bg-black]="mode === 'login'"
+      [class.text-white]="mode === 'login'"
+      (click)="switchMode('login')"
+    >
+      Connexion
+    </button>
+
+    <button
+      type="button"
+      class="px-3 py-2 rounded border"
+      [class.bg-black]="mode === 'register'"
+      [class.text-white]="mode === 'register'"
+      (click)="switchMode('register')"
+    >
+      Créer un compte
+    </button>
+
+  </div>
+
+  <div
+    *ngIf="error"
+    class="mb-3 p-3 rounded bg-red-100 text-red-800"
+  >
+    {{ error }}
+  </div>
+
+  
+
+  <form
+    *ngIf="mode === 'login'"
+    [formGroup]="loginForm"
+    (ngSubmit)="submitLogin()"
+    class="space-y-3"
+  >
+
+    <div>
+      <label class="block text-sm font-medium">
+        Email
+      </label>
+
+      <input
+        class="w-full border rounded px-3 py-2"
+        formControlName="email"
+        type="email"
+        placeholder="user@example.com"
+      />
+    </div>
+
+    <div>
+      <label class="block text-sm font-medium">
+        Mot de passe
+      </label>
+
+      <input
+        class="w-full border rounded px-3 py-2"
+        formControlName="password"
+        type="password"
+        placeholder="••••••"
+      />
+    </div>
+
+    <button
+      type="submit"
+      class="w-full bg-black text-white py-2 rounded disabled:opacity-60"
+      [disabled]="loading || loginForm.invalid"
+    >
+      {{ loading ? '...' : 'Se connecter' }}
+    </button>
+
+    <p class="text-sm text-gray-600">
+      Comptes démo :
+      <strong>admin&#64;example.com / admin123</strong>
+      ou
+      <strong>user&#64;example.com / user123</strong>
+    </p>
+
+  </form>
+
+  
+
+  <form
+    *ngIf="mode === 'register'"
+    [formGroup]="registerForm"
+    (ngSubmit)="submitRegister()"
+    class="space-y-3"
+  >
+
+    <div>
+      <label class="block text-sm font-medium">
+        Nom
+      </label>
+
+      <input
+        class="w-full border rounded px-3 py-2"
+        formControlName="name"
+        type="text"
+        placeholder="Votre nom"
+      />
+    </div>
+
+    <div>
+      <label class="block text-sm font-medium">
+        Email
+      </label>
+
+      <input
+        class="w-full border rounded px-3 py-2"
+        formControlName="email"
+        type="email"
+        placeholder="alice@example.com"
+      />
+    </div>
+
+    <div>
+      <label class="block text-sm font-medium">
+        Mot de passe
+      </label>
+
+      <input
+        class="w-full border rounded px-3 py-2"
+        formControlName="password"
+        type="password"
+        placeholder="min 8 caractères"
+      />
+    </div>
+
+    <button
+      type="submit"
+      class="w-full bg-black text-white py-2 rounded disabled:opacity-60"
+      [disabled]="loading || registerForm.invalid"
+    >
+      {{ loading ? '...' : 'Créer le compte' }}
+    </button>
+
+  </form>
+
+</div>

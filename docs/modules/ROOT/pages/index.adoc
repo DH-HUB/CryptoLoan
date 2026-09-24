@@ -1,0 +1,20 @@
+= CryptoLoan
+:description: Documentation technique de CryptoLoan
+
+CryptoLoan est une application de démonstration
+consacrée à la gestion de prêts garantis
+par des crypto-actifs.
+
+== Technologies
+
+* Angular
+* Spring Boot
+* PostgreSQL
+* Docker
+* JWT
+
+== Documentation
+
+Cette documentation présente l'architecture,
+les API, les tests et les procédures de
+déploiement de CryptoLoan.
