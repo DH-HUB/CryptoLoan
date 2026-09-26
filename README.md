@@ -87,13 +87,17 @@ Au dernier contrôle documenté, 7 tests backend et 10 tests frontend ont réuss
 
 ![Résultat des tests Maven du backend](docs/images/testsBackMaven.png)
 
-![Tests du formulaire de prêt](docs/images/testsFrontForm.png)
+![Tests du formulaire de prêt](docs/images/testFrontForm.png)
 
 ![Résultat de la suite Angular avec Karma et Jasmine](docs/images/testsFrontKarma.png)
 
 ![Tests du composant principal](docs/images/testsFrontApp.png)
 
 ![État des services Docker Compose](docs/images/dockerServicesHealthy.png)
+
+![Test recherche et filtrage](docs/images/testsRechercheFiltrage.png)
+
+![Test build Angula](docs/images/testBuildAngular.png)
 
 ## Organisation du dépôt
 
@@ -109,7 +113,7 @@ CryptoLoan/
 - README.md
 ```
 
-## Documentation technique
+## Documentation technique Antora
 
 - [Architecture](docs/ARCHITECTURE.md) : organisation des composants et échanges.
 - [API](docs/API.md) : endpoints et utilisation de l'API.
@@ -121,4 +125,4 @@ CryptoLoan/
 
 ## Limites de la démonstration
 
-Les comptes de démonstration et Mailpit sont prévus pour un usage local. Avant un déploiement accessible à des tiers, il faut revoir les secrets, les comptes de d, l'exposition réseau, la gestion des data et la couverture des tests. La présence d'une sonde de santé et de tests unitaires ne suffit pas pour la prod
+Les comptes de démonstration et Mailpit sont prévus pour un usage local. Avant un déploiement accessible à des tiers, il faut revoir les secrets, les comptes, l'exposition réseau, la gestion des data et la couverture des tests. La présence d'une sonde de santé et de tests unitaires ne suffit pas pour la prod
