@@ -31,6 +31,9 @@
 
       <ul class="absolute right-0 mt-2 bg-white border rounded shadow w-56" *ngIf="dropdownOpen">
         <li class="px-2 py-2 hover:bg-gray-200">
+          <a (click)="closeDropdown()" routerLink="/portfolio-summary" class="block w-full">Résumé du portefeuille</a>
+        </li>
+        <li class="px-2 py-2 hover:bg-gray-200">
           <a (click)="closeDropdown()" routerLink="/loan-management" class="block w-full">Gestion des Prêts</a>
         </li>
         <li class="px-2 py-2 hover:bg-gray-200">

@@ -1,0 +1,26 @@
+= Tests et vérifications
+
+Cette page présente les principales vérifications automatisées et techniques
+effectuées sur l'application CryptoLoan.
+Les tests backend sont exécutés avec Maven et couvrent notamment les cas
+d'usage métier, les contrôleurs REST et les règles d'architecture.
+
+### Captures des vérifications
+
+
+![Résultat des tests Maven du backend](docs/images/testsBackMaven.png)
+
+![Tests du formulaire de prêt](docs/images/testFrontForm.png)
+
+![Résultat de la suite Angular avec Karma et Jasmine](docs/images/testsFrontKarma.png)
+
+![Tests du composant principal](docs/images/testsFrontApp.png)
+
+![État des services Docker Compose](docs/images/dockerServicesHealthy.png)
+
+![Test recherche et filtrage](docs/images/testsRechercheFiltrage.png)
+
+
+![Tests backend Résumé du portefeuille](./docs/images/testsbackendPortefeuille.png)
+![Tests front Résumé du portefeuille](./docs/images/testsFrontPortefeuille.png)
+

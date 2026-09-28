@@ -5,11 +5,13 @@ import { GuaranteeManagementComponent } from './components/guarantee-management/
 import { LoginComponent } from './components/login/login.component';
 import { authGuard } from './auth/auth.guard';
 import { NotificationsComponent } from './components/notifications/notifications.component';
+import { LoanPositionSummaryComponent } from './components/loan-position-summary/loan-position-summary.component';
 
 export const routes: Routes = [
   { path: '', component: HomePageComponent },
   { path: 'login', component: LoginComponent },
   { path: 'loan-management', component: LoanManagementComponent, canActivate: [authGuard] },
+  { path: 'portfolio-summary', component: LoanPositionSummaryComponent, canActivate: [authGuard] },
   { path: 'guarantee-management', component: GuaranteeManagementComponent, canActivate: [authGuard] },
   { path: 'notifications', component: NotificationsComponent, canActivate: [authGuard] },
   { path: '**', redirectTo: '' },

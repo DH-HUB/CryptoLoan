@@ -1,6 +1,6 @@
 # Architecture CryptoLoan
 
-L'application utilise un **monolithe modulaire** (Spring Boot) où chaque métier (Auth, Prêts, Garanties, Contrats, Notifications) est isolé et communique via des interfaces.
+L'application utilise un **monolithe modulaire** (Spring Boot) où chaque métier (Auth, Prêts, Position de prêts, Garanties, Contrats, Notifications) est isolé et communique via des interfaces.
 
 Chaque module applique l'**architecture hexagonale** :
 * **Domaine :** Logique et règles métier pures (sans Spring/JPA).
@@ -12,6 +12,7 @@ L'application est découpée en modules métier autonomes situés sous com.crypt
 
 identity : Comptes, rôles et authentification JWT.
 loan : Cycle de vie des prêts, garanties, évaluation du risque et liquidation.
+loanposition : Résumé agrégé de la position de prêts de l’utilisateur authentifié.
 pricing : Récupération et mise en cache des prix externes.
 contract : Gestion des documents, empreintes cryptographiques et signatures.
 notification : Historique des alertes, protocoles SMTP et SSE.
@@ -60,3 +61,17 @@ Les tests ne suffisent toutefois pas à valider le déploiement. Après la const
 ## Évolutions possibles
 
 Le monolithe modulaire garde le déploiement simple tant que les modules évoluent ensemble. Si un besoin d'exploitation indépendant apparaît, les ports et les frontières métier fourniront une base pour envisager l'extraction d'un module. Ce sera une décision à prendre en fonction des besoins réels, et non une obligation liée à l'architecture actuelle.
+
+## Module `loanposition`
+
+La V3 introduit le module métier `loanposition`, responsable du calcul du résumé de portefeuille. Le nom interne décrit la position de prêts de l'utilisateur ; l'API publique conserve la ressource `/api/portfolio/summary` et l'interface affiche « Résumé du portefeuille ».
+
+Le module respecte la séparation hexagonale :
+
+- `loanposition.domain` contient le modèle de résumé et les statuts nécessaires au calcul ;
+- `loanposition.application` contient le cas d'usage de calcul du résumé ;
+- `loanposition.domain.port.out` expose le port minimal `LoanReader` nécessaire au cas d'usage ;
+- `loanposition.adapters.in.web` expose l'endpoint HTTP et récupère l'utilisateur depuis `AuthenticatedUser` ;
+- `loan.adapters.in.loanposition` implémente le port de lecture et traduit le modèle `loan` en snapshots minimaux pour `loanposition`.
+
+Cette direction de dépendance évite au module `loanposition` de connaître les entités JPA, repositories Spring Data, contrôleurs ou services concrets du module `loan`. Le backend reste la source de vérité : Angular consomme uniquement le résumé calculé par l'API et ne reconstruit pas les agrégats à partir de la liste des prêts.

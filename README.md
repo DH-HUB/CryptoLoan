@@ -5,7 +5,7 @@ CryptoLoan est une application de démonstration consacrée aux prêts garantis 
 
 ## Fonctionnement
 
-L'utilisateur renseigne le montant demandé, le crypto-actif déposé, la quantité et le ratio de garantie. L'application communique avec le backend pour enregistrer et consulter les prêts. Elle comprend également des fonctions de gestion des garanties, de contrats et d'authentification par JWT. Le backend peut interroger CoinGecko pour obtenir des prix de crypto-actifs ; les emails de démonstration sont capturés par Mailpit.
+L'utilisateur renseigne le montant demandé, le crypto-actif déposé, la quantité et le ratio de garantie. L'application communique avec le backend pour enregistrer et consulter les prêts. Elle comprend également des fonctions de gestion des garanties, de contrats et d'authentification par JWT. Le backend peut interroger CoinGecko pour obtenir des prix de crypto-actifs ; les emails de démonstration sont capturés par Mailpit
 
 ## Aperçu de l'application
 ![Page d'accueil](docs/images/accueil.png)
@@ -81,23 +81,6 @@ npm test -- --watch=false
 Sous Git Bash sur Windows, utiliser npm.cmd si PowerShell bloque les scripts npm. Les tests frontend utilisent des dépendances simulées lorsque c'est nécessaire ; leur réussite ne remplace pas un test d'intégration de bout en bout.
 
 Au dernier contrôle documenté, 7 tests backend et 10 tests frontend ont réussi. Ces chiffres décrivent cette exécution et devront être actualisés lorsque la suite évoluera.
-
-### Captures des vérifications
-
-
-![Résultat des tests Maven du backend](docs/images/testsBackMaven.png)
-
-![Tests du formulaire de prêt](docs/images/testFrontForm.png)
-
-![Résultat de la suite Angular avec Karma et Jasmine](docs/images/testsFrontKarma.png)
-
-![Tests du composant principal](docs/images/testsFrontApp.png)
-
-![État des services Docker Compose](docs/images/dockerServicesHealthy.png)
-
-![Test recherche et filtrage](docs/images/testsRechercheFiltrage.png)
-
-![Test build Angula](docs/images/testBuildAngular.png)
 
 ## Organisation du dépôt
 

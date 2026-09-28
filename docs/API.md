@@ -106,6 +106,42 @@ Les événements d'audit sont accessibles avec :
 
 Cette route est réservée aux administrateurs.
 
+## Résumé du portefeuille
+
+Le résumé du portefeuille de l'utilisateur authentifié est disponible avec :
+
+`GET /api/portfolio/summary`
+
+La requête ne prend **aucun email utilisateur** en paramètre. Le backend identifie le propriétaire du portefeuille à partir du JWT et de l'`AuthenticatedUser` courant.
+
+La réponse contient :
+
+- `totalLoans` : nombre total de prêts de l'utilisateur ;
+- `pendingLoans` : prêts au statut `PENDING` ;
+- `approvedLoans` : prêts au statut `APPROVED` ;
+- `liquidatedLoans` : prêts au statut `LIQUIDATED` ;
+- `totalBorrowedEur` : montant cumulé des prêts ayant été approuvés, y compris ceux ensuite liquidés ;
+- `outstandingEur` : encours actuel des prêts au statut `APPROVED` ;
+- `collateralByCrypto` : garanties des prêts `PENDING` et `APPROVED`, regroupées par symbole de crypto-actif.
+
+Exemple de réponse :
+
+```json
+{
+  "totalLoans": 3,
+  "pendingLoans": 1,
+  "approvedLoans": 1,
+  "liquidatedLoans": 1,
+  "totalBorrowedEur": 3200,
+  "outstandingEur": 2000,
+  "collateralByCrypto": [
+    { "symbol": "BTC", "quantity": 0.35 },
+    { "symbol": "ETH", "quantity": 1.5 }
+  ]
+}
+```
+
+
 ## OpenAPI
 
 La spécification OpenAPI est générée directement par le backend avec Springdoc.

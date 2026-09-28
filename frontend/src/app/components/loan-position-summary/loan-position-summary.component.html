@@ -1,0 +1,91 @@
+<section class="portfolio-page" aria-labelledby="portfolio-title">
+  <div class="page-heading">
+    <div>
+      <p class="eyebrow">Portefeuille</p>
+      <h2 id="portfolio-title">Résumé du portefeuille</h2>
+      <p class="subtitle">Une vue consolidée de vos prêts et garanties, calculée par CryptoLoan.</p>
+    </div>
+    <button type="button" class="refresh-button" (click)="load()" [disabled]="loading">
+      Actualiser
+    </button>
+  </div>
+
+  <div *ngIf="loading" class="state-card" role="status">Chargement du portefeuille...</div>
+
+  <div *ngIf="!loading && error" class="state-card error" role="alert">
+    <strong>Résumé indisponible</strong>
+    <span>{{ error }}</span>
+    <button type="button" (click)="load()">Réessayer</button>
+  </div>
+
+  <div *ngIf="!loading && !error && summary as data">
+    <div *ngIf="data.totalLoans === 0" class="state-card empty-state">
+      <strong>Votre portefeuille est vide</strong>
+      <span>Vous n'avez encore aucun prêt à résumer.</span>
+    </div>
+
+    <ng-container *ngIf="data.totalLoans > 0">
+      <div class="metrics-grid" aria-label="Indicateurs du portefeuille">
+        <article class="metric-card primary">
+          <span class="metric-label">Encours actuel</span>
+          <strong>{{ data.outstandingEur | currency:'EUR':'symbol':'1.2-2' }}</strong>
+          <small>Prêts approuvés non liquidés</small>
+        </article>
+
+        <article class="metric-card">
+          <span class="metric-label">Total emprunté</span>
+          <strong>{{ data.totalBorrowedEur | currency:'EUR':'symbol':'1.2-2' }}</strong>
+          <small>Prêts approuvés, y compris liquidés</small>
+        </article>
+
+        <article class="metric-card">
+          <span class="metric-label">Nombre de prêts</span>
+          <strong>{{ data.totalLoans }}</strong>
+          <small>Tous statuts confondus</small>
+        </article>
+      </div>
+
+      <div class="details-grid">
+        <section class="panel" aria-labelledby="status-title">
+          <div class="panel-heading">
+            <h3 id="status-title">Répartition par statut</h3>
+          </div>
+          <dl class="status-list">
+            <div>
+              <dt>En attente</dt>
+              <dd>{{ data.pendingLoans }}</dd>
+            </div>
+            <div>
+              <dt>Approuvés</dt>
+              <dd>{{ data.approvedLoans }}</dd>
+            </div>
+            <div>
+              <dt>Liquidés</dt>
+              <dd>{{ data.liquidatedLoans }}</dd>
+            </div>
+          </dl>
+        </section>
+
+        <section class="panel" aria-labelledby="collateral-title">
+          <div class="panel-heading">
+            <div>
+              <h3 id="collateral-title">Garanties actives</h3>
+              <p>Demandes en attente et prêts approuvés, regroupés par crypto.</p>
+            </div>
+          </div>
+
+          <div *ngIf="data.collateralByCrypto.length; else noCollateral" class="collateral-list">
+            <div *ngFor="let collateral of data.collateralByCrypto" class="collateral-row">
+              <span class="crypto-symbol">{{ collateral.symbol }}</span>
+              <strong>{{ collateral.quantity | number:'1.0-8' }}</strong>
+            </div>
+          </div>
+
+          <ng-template #noCollateral>
+            <p class="muted">Aucune garantie active.</p>
+          </ng-template>
+        </section>
+      </div>
+    </ng-container>
+  </div>
+</section>
